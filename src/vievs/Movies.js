@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { fetchMoviesName } from "../servises/theMovieAPI";
 import SearchForm from "../components/SearchForm";
 import MoviesList from "../components/MoviesList";
+import Loader from "../components/Loader";
 
 const Movies = () => {
   const [name, setName] = useState(null);
@@ -35,12 +36,24 @@ const Movies = () => {
     }
   }, [name]);
 
-  return (
-    <>
-      <SearchForm onSubmit={handleFormSubmit} />
-      <MoviesList films={films} from="movies" />
-    </>
-  );
+  if (status === "idle") {
+    return <SearchForm onSubmit={handleFormSubmit} />;
+  }
+  if (status === "pending") {
+    return <Loader />;
+  }
+  if (status === "resolved") {
+    return (
+      <>
+        <SearchForm onSubmit={handleFormSubmit} />
+        <MoviesList films={films} from="movies" />
+      </>
+    );
+  }
+
+  if (status === "rejected") {
+    return <h2>{error}</h2>;
+  }
 };
 
 export default Movies;

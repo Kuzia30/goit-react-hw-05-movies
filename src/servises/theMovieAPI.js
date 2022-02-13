@@ -22,3 +22,25 @@ export async function fetchMoviesName(name) {
     console.log(error);
   }
 }
+
+export async function fetchMovieById(id) {
+  try {
+    const response = await axios.get(
+      `/movie/${id}?api_key=${KEY}&language=en-US`
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function fetchMovieActors(id) {
+  try {
+    const response = await axios.get(
+      `/movie/${id}/credits?api_key=${KEY}&language=en-US`
+    );
+    return response.data.cast;
+  } catch (error) {
+    console.log(error);
+  }
+}

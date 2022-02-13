@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { fetchTrendingMovies } from "../servises/theMovieAPI";
-import { Rings } from "react-loader-spinner";
+import Loader from "../components/Loader";
 
 import MoviesList from "../components/MoviesList";
 
@@ -28,7 +28,7 @@ const Home = () => {
     return <p>Try later</p>;
   }
   if (status === "pending") {
-    return <Rings ariaLabel="loading-indicator" />;
+    return <Loader />;
   }
   if (status === "resolved") {
     return (
