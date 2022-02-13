@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const MoviesList = ({ films, from }) => {
+  const location = useLocation();
   if (from === "home") {
     return (
       <ul>
@@ -18,7 +19,9 @@ const MoviesList = ({ films, from }) => {
       <ul>
         {films.map((film) => (
           <li key={film.id}>
-            <Link to={film.id.toString()}>{film.original_title} </Link>
+            <Link to={film.id.toString()} state={{ from: location }}>
+              {film.original_title}
+            </Link>
           </li>
         ))}
       </ul>

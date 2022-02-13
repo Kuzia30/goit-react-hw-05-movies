@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { useParams, Link, Outlet } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { fetchMovieById } from "../servises/theMovieAPI";
 import Loader from "../components/Loader";
+import FilmDetails from "../components/FilmDetails";
 
-const Film = () => {
+const Film = ({ from }) => {
   const [status, setStatus] = useState("idle");
   const [film, setFilm] = useState(null);
   const [error, setError] = useState(null);
@@ -44,51 +45,15 @@ const Film = () => {
       overview,
       genres,
     } = film;
-    const date = new Date(release_date);
-    const yearRelease = date.getFullYear();
-    const userScore = vote_average * 10;
-    const fullPath = `https://image.tmdb.org/t/p/w500${poster_path}`;
     return (
-      <>
-        <section>
-          <div>
-            <div>
-              <img
-                src={fullPath}
-                alt={original_title}
-                width="274px"
-                height="398px"
-              />
-            </div>
-            <div>
-              <h2>
-                {original_title} ({yearRelease})
-              </h2>
-              <p>User score: {userScore}%</p>
-              <h3>Overview</h3>
-              <p>{overview}</p>
-              <h4>Genres</h4>
-              <p>
-                {genres.map((genr) => (
-                  <span key={genr.id}>{genr.name} </span>
-                ))}
-              </p>
-            </div>
-          </div>
-          <div>
-            <h4>Additional information</h4>
-            <ul>
-              <li>
-                <Link to={`cast`}>Cast</Link>
-              </li>
-              <li>
-                <Link to={`revievs`}>Revievs</Link>
-              </li>
-            </ul>
-          </div>
-        </section>
-        <Outlet />
-      </>
+      <FilmDetails
+        poster={poster_path}
+        title={original_title}
+        release_date={release_date}
+        votes={vote_average}
+        overview={overview}
+        genres={genres}
+      />
     );
   }
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import { useSearchParams } from "react-router-dom";
 import { fetchMoviesName } from "../servises/theMovieAPI";
 import SearchForm from "../components/SearchForm";
 import MoviesList from "../components/MoviesList";
@@ -11,15 +11,22 @@ const Movies = () => {
   const [films, setFilms] = useState([]);
   const [error, setError] = useState(null);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  let currentQuery = searchParams.get("query");
+
   const handleFormSubmit = (name) => {
     setName(name);
   };
 
   useEffect(() => {
+    if (name) {
+      setSearchParams({ query: name });
+    }
     async function fetchData() {
       try {
         setStatus("pending");
-        const films = await fetchMoviesName(name);
+        const films = await fetchMoviesName(currentQuery);
+
         if (films.length === 0) {
           return await Promise.reject(new Error("Try another name"));
         } else {
@@ -31,16 +38,21 @@ const Movies = () => {
         setError(error.message);
       }
     }
-    if (name) {
+    if (currentQuery) {
       fetchData();
     }
-  }, [name]);
+  }, [name, setSearchParams, currentQuery]);
 
   if (status === "idle") {
     return <SearchForm onSubmit={handleFormSubmit} />;
   }
   if (status === "pending") {
-    return <Loader />;
+    return (
+      <>
+        <SearchForm onSubmit={handleFormSubmit} />
+        <Loader />
+      </>
+    );
   }
   if (status === "resolved") {
     return (
@@ -52,7 +64,12 @@ const Movies = () => {
   }
 
   if (status === "rejected") {
-    return <h2>{error}</h2>;
+    return (
+      <>
+        <SearchForm onSubmit={handleFormSubmit} />
+        <h2>{error}</h2>
+      </>
+    );
   }
 };
 
