@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { fetchTrendingMovies } from "../servises/theMovieAPI";
 import { Rings } from "react-loader-spinner";
 
+import MoviesList from "../components/MoviesList";
+
 const Home = () => {
   const [trendingFilms, setTrendingFilms] = useState([]);
   const [status, setStatus] = useState("idle");
@@ -32,11 +34,7 @@ const Home = () => {
     return (
       <>
         <h1>Trending Films</h1>
-        <ul>
-          {trendingFilms.map((film) => (
-            <li key={film.id}>{film.original_title}</li>
-          ))}
-        </ul>
+        <MoviesList films={trendingFilms} from="home" />
       </>
     );
   }

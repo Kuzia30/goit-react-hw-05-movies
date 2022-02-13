@@ -11,3 +11,14 @@ export async function fetchTrendingMovies() {
     console.log(error);
   }
 }
+
+export async function fetchMoviesName(name) {
+  try {
+    const response = await axios.get(
+      `/search/movie?api_key=${KEY}&query=${name}`
+    );
+    return response.data.results;
+  } catch (error) {
+    console.log(error);
+  }
+}
