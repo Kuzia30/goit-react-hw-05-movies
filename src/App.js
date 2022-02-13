@@ -1,7 +1,7 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 
-import Navigation from "./components/Navigation/Navigation";
+import Navigation from "./components/Navigation";
 import Home from "./vievs/Home";
 import Movies from "./vievs/Movies";
 import Film from "./vievs/Film";

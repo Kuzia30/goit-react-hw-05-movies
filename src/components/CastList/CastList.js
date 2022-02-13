@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const CastList = ({ data }) => {
   return (
     <ul>
@@ -20,3 +22,7 @@ const CastList = ({ data }) => {
 };
 
 export default CastList;
+
+CastList.propTypes = {
+  data: PropTypes.array.isRequired,
+};
