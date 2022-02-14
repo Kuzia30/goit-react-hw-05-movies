@@ -17,7 +17,7 @@ const Film = ({ from }) => {
         setStatus("pending");
         const foundFilm = await fetchMovieById(itemId);
         if (!foundFilm) {
-          return await Promise.reject(new Error("Try another name"));
+          return await Promise.reject(new Error("movie not found"));
         } else {
           setFilm(foundFilm);
         }

@@ -1,17 +1,23 @@
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
+import { Title, ItemLink } from "./MovieList.styled";
 
 const MoviesList = ({ films, from }) => {
   const location = useLocation();
   if (from === "home") {
     return (
-      <ul>
-        {films.map((film) => (
-          <li key={film.id}>
-            <Link to={`movies/${film.id}`}>{film.original_title} </Link>
-          </li>
-        ))}
-      </ul>
+      <>
+        <Title>Trending Films</Title>
+        <ul>
+          {films.map((film) => (
+            <li key={film.id}>
+              <ItemLink to={`movies/${film.id}`}>
+                {film.original_title}{" "}
+              </ItemLink>
+            </li>
+          ))}
+        </ul>
+      </>
     );
   }
   if (from === "movies") {
@@ -19,9 +25,9 @@ const MoviesList = ({ films, from }) => {
       <ul>
         {films.map((film) => (
           <li key={film.id}>
-            <Link to={film.id.toString()} state={{ from: location }}>
+            <ItemLink to={film.id.toString()} state={{ from: location }}>
               {film.original_title}
-            </Link>
+            </ItemLink>
           </li>
         ))}
       </ul>

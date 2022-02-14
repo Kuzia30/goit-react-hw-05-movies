@@ -1,11 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
+import { Button } from "./GoBack.styled";
 
 const GoBack = () => {
   const location = useLocation();
   return (
-    <button>
+    <Button>
       <Link to={location?.state?.from ?? "/"}>go back</Link>
-    </button>
+    </Button>
   );
 };
 export default GoBack;

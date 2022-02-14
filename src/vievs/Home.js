@@ -31,12 +31,7 @@ const Home = () => {
     return <Loader />;
   }
   if (status === "resolved") {
-    return (
-      <>
-        <h1>Trending Films</h1>
-        <MoviesList films={trendingFilms} from="home" />
-      </>
-    );
+    return <MoviesList films={trendingFilms} from="home" />;
   }
 
   if (status === "rejected") {
