@@ -1,5 +1,14 @@
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import GoBack from "../GoBack";
+import {
+  DetailsWrap,
+  ImgWrap,
+  InformationWrap,
+  InformationTitle,
+  InformationList,
+  InformationItem,
+  InformationLink,
+} from "./FilmDetails.styled";
 
 const FilmDetails = ({
   poster,
@@ -17,10 +26,10 @@ const FilmDetails = ({
     <>
       <GoBack from={"home"} />
       <section>
-        <div>
-          <div>
+        <DetailsWrap>
+          <ImgWrap>
             <img src={fullPath} alt={title} width="274px" height="398px" />
-          </div>
+          </ImgWrap>
           <div>
             <h2>
               {title} ({yearRelease})
@@ -35,18 +44,18 @@ const FilmDetails = ({
               ))}
             </p>
           </div>
-        </div>
-        <div>
-          <h4>Additional information</h4>
-          <ul>
-            <li>
-              <Link to={`cast`}>Cast</Link>
-            </li>
-            <li>
-              <Link to={`revievs`}>Revievs</Link>
-            </li>
-          </ul>
-        </div>
+        </DetailsWrap>
+        <InformationWrap>
+          <InformationTitle>Additional information</InformationTitle>
+          <InformationList>
+            <InformationItem>
+              <InformationLink to={`cast`}>Cast</InformationLink>
+            </InformationItem>
+            <InformationItem>
+              <InformationLink to={`revievs`}>Revievs</InformationLink>
+            </InformationItem>
+          </InformationList>
+        </InformationWrap>
       </section>
       <Outlet />
     </>
