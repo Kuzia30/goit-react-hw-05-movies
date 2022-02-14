@@ -1,25 +1,30 @@
 import { Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import { GlobalStyle } from "./App.styled";
 import Navigation from "./components/Navigation";
-import Home from "./vievs/Home";
-import Movies from "./vievs/Movies";
-import Film from "./vievs/Film";
-import Cast from "./vievs/Cast";
-import Reviews from "./vievs/Reviews";
+import Loader from "./components/Loader";
+
+const HomeView = lazy(() => import("./vievs/Home.js"));
+const MoviesView = lazy(() => import("./vievs/Movies.js"));
+const FilmView = lazy(() => import("./vievs/Film.js"));
+const Cast = lazy(() => import("./vievs/Cast.js"));
+const Reviews = lazy(() => import("./vievs/Reviews.js"));
 
 const App = () => (
   <>
     <GlobalStyle />
-    <Routes>
-      <Route path="/" element={<Navigation />}>
-        <Route index element={<Home />} />
-        <Route path="movies" element={<Movies />} />
-        <Route path="movies/:itemId" element={<Film />}>
-          <Route path="cast" element={<Cast />} />
-          <Route path="revievs" element={<Reviews />} />
+    <Suspense fallback={<Loader />}>
+      <Routes>
+        <Route path="/" element={<Navigation />}>
+          <Route index element={<HomeView />} />
+          <Route path="movies" element={<MoviesView />} />
+          <Route path="movies/:itemId" element={<FilmView />}>
+            <Route path="cast" element={<Cast />} />
+            <Route path="revievs" element={<Reviews />} />
+          </Route>
         </Route>
-      </Route>
-    </Routes>
+      </Routes>
+    </Suspense>
   </>
 );
 export default App;
